@@ -10,9 +10,6 @@ set KRB_INSTALL_DIR=%LIBRARY_PREFIX%
 :: Need this set or libs/Makefile fails
 set VISUALSTUDIOVERSION=%VS_MAJOR%0
 
-:: Only VS2015 seems to add this to the path, so do it for VS2008/2010
-set PATH=%PATH%;"C:\Program Files (x86)\HTML Help Workshop"
-
 cd src
 
 :: Create Makefile for Windows.

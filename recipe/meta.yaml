@@ -13,6 +13,8 @@ source:
     - jsoneoverflow.patch  # [win and py<34]
     - afxres.patch  # [win and py<35]
     - lshutil.patch  # [win and py<35]
+    - noleash.patch  # [win]
+    - noinstallleash.patch  # [win]
 
 build:
   number: 0
