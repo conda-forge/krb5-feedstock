@@ -17,4 +17,3 @@ elif sys.platform == 'darwin':
 else:
     path = os.path.expandvars('$PREFIX/lib/libkrb5.so')
     libfreexl = ctypes.CDLL(path)
-    
