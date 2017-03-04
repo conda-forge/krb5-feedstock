@@ -18,29 +18,36 @@ source:
 
 build:
   number: 0
+  skip: True  # [win and py>35]
   features:
     - vc9  # [win and py27]
     - vc10  # [win and py34]
-    - vc14  # [win and py35]
+    - vc14  # [win and py>=35]
 
 requirements:
   build:
     - python
     - bison  # [not win]
     - autoconf  # [not win]
-    - perl >=5.20.3.1
     - msinttypes  # [win and py<35]
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py>=35]
+  run:
+    - vc 9  # [win and py27]
+    - vc 10  # [win and py34]
+    - vc 14  # [win and py>=35]
 
 test:
-  requires:
-    - python {{ environ['PY_VER'] + '*' }}  # [win]
   commands:
-    - conda inspect linkages -n _test krb5  # [linux]
+    - conda inspect linkages -p $PREFIX krb5  # [not win]
+    - conda inspect objects -p $PREFIX krb5  # [osx]
 
 about:
   home: http://web.mit.edu/kerberos/
   license: MIT
-  summary: A network authentication protocol.
+  license_file: doc/notice.rst
+  summary: 'A network authentication protocol.'
 
 extra:
   recipe-maintainers:
