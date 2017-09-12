@@ -17,7 +17,7 @@ source:
     - noinstallleash.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win and py>35]
   features:
     - vc9  # [win and py27]
@@ -26,6 +26,7 @@ build:
 
 requirements:
   build:
+    - {{ compiler('c') }}
     - python
     - bison  # [not win]
     - autoconf  # [not win]
@@ -53,3 +54,4 @@ extra:
   recipe-maintainers:
     - pelson
     - ocefpaf
+    - mingwandroid
