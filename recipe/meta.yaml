@@ -34,7 +34,14 @@ requirements:
     - vc 9  # [win and py27]
     - vc 10  # [win and py34]
     - vc 14  # [win and py>=35]
+  host:
+    - libedit  # [unix]
+    - openssl 1.0.*
+    - tk 8.6.*
   run:
+    - libedit  # [unix]
+    - openssl 1.0.*
+    - tk 8.6.*
     - vc 9  # [win and py27]
     - vc 10  # [win and py34]
     - vc 14  # [win and py>=35]
