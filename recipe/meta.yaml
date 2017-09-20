@@ -17,7 +17,7 @@ source:
     - noinstallleash.patch  # [win]
 
 build:
-  number: 1
+  number: 3
   skip: True  # [win and py>35]
   features:
     - vc9  # [win and py27]
@@ -27,6 +27,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - python
     - bison  # [not win]
     - autoconf  # [not win]
@@ -47,6 +48,8 @@ requirements:
     - vc 14  # [win and py>=35]
 
 test:
+  requires:
+    - {{ compiler('c') }}
   commands:
     - conda inspect linkages -p $PREFIX krb5  # [not win]
     - conda inspect objects -p $PREFIX krb5  # [osx]
