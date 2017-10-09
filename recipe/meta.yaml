@@ -17,35 +17,21 @@ source:
     - noinstallleash.patch  # [win]
 
 build:
-  number: 3
-  skip: True  # [win and py>35]
+  number: 4
   features:
-    - vc9  # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and py>=35]
+    - vc{{ vc }}  # [win]
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - python
     - bison  # [not win]
     - autoconf  # [not win]
-    - msinttypes  # [win and py<35]
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py>=35]
   host:
+    - msinttypes  # [win and vc<14]
     - libedit  # [unix]
-    - openssl 1.0.*
-    - tk 8.6.*
-  run:
-    - libedit  # [unix]
-    - openssl 1.0.*
-    - tk 8.6.*
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py>=35]
+    - openssl
+    - tk
 
 test:
   requires:
