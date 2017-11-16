@@ -17,9 +17,7 @@ source:
     - noinstallleash.patch  # [win]
 
 build:
-  number: 4
-  features:
-    - vc{{ vc }}  # [win]
+  number: 5
 
 requirements:
   build:
@@ -27,6 +25,8 @@ requirements:
     - {{ compiler('cxx') }}
     - bison  # [not win]
     - autoconf  # [not win]
+    - posix  # [win]
+    - perl  5.20.*   # [win]
   host:
     - msinttypes  # [win and vc<14]
     - libedit  # [unix]
