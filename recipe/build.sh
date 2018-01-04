@@ -1,11 +1,6 @@
 #!/bin/bash
 
-if [[ ${HOST} =~ .*darwin.* ]]; then
-  export LDFLAGS="${LDFLAGS_CC} -Wl,-rpath,${PREFIX}/lib"
-fi
-
 export CPPFLAGS="${CPPFLAGS} -I${PREFIX}/include"
-export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
 
 pushd src
   autoreconf -i
