@@ -14,6 +14,10 @@ source:
     - lshutil.patch  # [win and py<35]
     - noleash.patch  # [win]
     - noinstallleash.patch  # [win]
+    # https://github.com/krb5/krb5/pull/511
+    - 0001-Fix-build-with-O3-on-ppc64el.patch
+    # https://github.com/krb5/krb5/pull/721
+    - 0002-Initialize-return-value-to-NULL-in-appdefault_get.patch
 
 build:
   number: 6
