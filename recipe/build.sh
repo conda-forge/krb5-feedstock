@@ -6,6 +6,7 @@ pushd src
   autoreconf -i
   ./configure --prefix=${PREFIX}    \
               --host=${HOST}        \
+              --build=${BUILD}      \
               --with-tcl=${PREFIX}  \
               --without-readline    \
               --with-libedit
