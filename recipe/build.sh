@@ -2,6 +2,9 @@
 
 export CPPFLAGS="${CPPFLAGS} -I${PREFIX}/include"
 
+# https://github.com/conda-forge/bison-feedstock/issues/7
+export M4="${BUILD_PREFIX}/bin/m4"
+
 pushd src
   autoreconf -i
   ./configure --prefix=${PREFIX}    \
