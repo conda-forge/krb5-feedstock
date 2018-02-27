@@ -1,3 +1,5 @@
+set NO_LEASH=1
+
 :: Finds stdint.h from msinttypes.
 set INCLUDE=%LIBRARY_INC%;%INCLUDE%
 
