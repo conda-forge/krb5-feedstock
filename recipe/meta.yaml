@@ -1,4 +1,4 @@
-{% set version = "1.16" %}
+{% set version = "1.16.1" %}
 
 package:
   name: krb5
@@ -6,20 +6,20 @@ package:
 
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
-  sha256: b416ba519317fcccac967c91cb995b0162d9b4c53de459a78330133fbeb4d01e
+  sha256: d46a676bd6cfe58b8684ffd881bc7ed2c9c90cb43ccfa45a9500530e84aa262b
   patches:
     - eafnosupport.patch  # [win and py<34]
     - jsoneoverflow.patch  # [win and py<34]
     - afxres.patch  # [win and py<35]
     - lshutil.patch  # [win and py<35]
-    # https://github.com/krb5/krb5/pull/721
-    - 0002-Initialize-return-value-to-NULL-in-appdefault_get.patch
 
 build:
   number: 6
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
+  missing_dso_whitelist:          # [osx]
+    - /usr/lib/libresolv.9.dylib  # [osx]
 
 requirements:
   build:
@@ -30,6 +30,8 @@ requirements:
     - posix  # [win]
     - perl  5.20.*   # [win]
     - pkg-config  # [unix]
+    - make   # [unix]
+    - python 2.7
   host:
     - msinttypes  # [win and vc<14]
     - libedit  # [unix]
@@ -39,8 +41,6 @@ requirements:
     - {{ pin_compatible('libedit') }}  # [unix]
 
 test:
-  requires:
-    - {{ compiler('c') }}
   commands:
     - conda inspect linkages -p $PREFIX krb5  # [not win]
     - conda inspect objects -p $PREFIX krb5  # [osx]

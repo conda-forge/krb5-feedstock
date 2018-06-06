@@ -1,7 +1,12 @@
 #!/bin/bash
+set -x
 
-export CPPFLAGS="${CPPFLAGS} -I${PREFIX}/include"
+export CPPFLAGS="${CPPFLAGS/-DNDEBUG/} -I${PREFIX}/include"
 export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
+
+if [[ ${HOST} =~ .*linux.* ]]; then
+  export LDFLAGS="$LDFLAGS -Wl,--disable-new-dtags"
+fi
 
 # https://github.com/conda-forge/bison-feedstock/issues/7
 export M4="${BUILD_PREFIX}/bin/m4"

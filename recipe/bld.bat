@@ -3,9 +3,6 @@ set NO_LEASH=1
 :: Finds stdint.h from msinttypes.
 set INCLUDE=%LIBRARY_INC%;%INCLUDE%
 
-:: Make sure you have sed, gawk, cat, and cp.
-set PATH=%PATH%;C:\msys64\usr\bin
-
 :: Set the install path
 set KRB_INSTALL_DIR=%LIBRARY_PREFIX%
 
