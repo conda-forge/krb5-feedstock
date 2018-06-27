@@ -14,14 +14,16 @@ Summary: A network authentication protocol.
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/krb5-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/krb5-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/krb5-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/krb5-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/krb5-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/krb5-feedstock/branch/master)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/krb5-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/krb5-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/krb5-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/krb5-feedstock)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/krb5-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/krb5-feedstock/branch/master)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/krb5/badges/version.svg)](https://anaconda.org/conda-forge/krb5)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/krb5/badges/downloads.svg)](https://anaconda.org/conda-forge/krb5)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-krb5-green.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) |
 
 Installing krb5
 ===============
