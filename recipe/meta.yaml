@@ -1,42 +1,44 @@
-{% set version = "1.14.6" %}
+{% set version = "1.16.1" %}
 
 package:
   name: krb5
   version: {{ version }}
 
 source:
-  fn: krb5-{{ version }}.tar.gz
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
-  sha256: 34c7d6dfdd03d3c6827676a4c8e8fc590727ce396487da8d1b761ad39d728d9a
+  sha256: d46a676bd6cfe58b8684ffd881bc7ed2c9c90cb43ccfa45a9500530e84aa262b
   patches:
-    - eafnosupport.patch  # [win and py<34]
-    - jsoneoverflow.patch  # [win and py<34]
-    - afxres.patch  # [win and py<35]
-    - lshutil.patch  # [win and py<35]
-    - noleash.patch  # [win]
-    - noinstallleash.patch  # [win]
+    - eafnosupport.patch  # [win and vc<14]
+    - jsoneoverflow.patch  # [win and vc<14]
+    - afxres.patch  # [win and vc<14]
+    - lshutil.patch  # [win and vc<14]
 
 build:
-  number: 0
-  skip: True  # [win and py>35]
-  features:
-    - vc9  # [win and py27]
-    - vc10  # [win and py34]
-    - vc14  # [win and py>=35]
+  number: 6
+  run_exports:
+    # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
+    - {{ pin_subpackage('krb5', max_pin='x.x') }}
+  missing_dso_whitelist:          # [osx]
+    - /usr/lib/libresolv.9.dylib  # [osx]
 
 requirements:
   build:
-    - python
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - bison  # [not win]
     - autoconf  # [not win]
-    - msinttypes  # [win and py<35]
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py>=35]
+    - posix  # [win]
+    - perl  5.20.*   # [win]
+    - pkg-config  # [unix]
+    - make   # [unix]
+    - python 2.7
+  host:
+    - msinttypes  # [win and vc<14]
+    - libedit  # [unix]
+    - openssl
+    - tk
   run:
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py>=35]
+    - {{ pin_compatible('libedit') }}  # [unix]
 
 test:
   commands:
@@ -53,3 +55,4 @@ extra:
   recipe-maintainers:
     - pelson
     - ocefpaf
+    - mingwandroid
