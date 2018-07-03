@@ -39,6 +39,8 @@ requirements:
     - tk
   run:
     - {{ pin_compatible('libedit') }}  # [unix]
+    - openssl
+    - tk
 
 test:
   commands:
@@ -56,3 +58,4 @@ extra:
     - pelson
     - ocefpaf
     - mingwandroid
+    - mariusvniekerk
