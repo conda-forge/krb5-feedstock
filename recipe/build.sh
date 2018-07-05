@@ -1,13 +1,28 @@
 #!/bin/bash
+set -x
 
-cd src
+export CPPFLAGS="${CPPFLAGS/-DNDEBUG/} -I${PREFIX}/include"
+export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
 
-autoreconf -i
-
-./configure --prefix=$PREFIX
-
-make
-if [ "$PY_VER" == "2.7" ]; then
-  make check
+if [[ ${HOST} =~ .*linux.* ]]; then
+  export LDFLAGS="$LDFLAGS -Wl,--disable-new-dtags"
 fi
-make install
+
+# https://github.com/conda-forge/bison-feedstock/issues/7
+export M4="${BUILD_PREFIX}/bin/m4"
+
+pushd src
+  autoreconf -i
+  ./configure --prefix=${PREFIX}    \
+              --host=${HOST}        \
+              --build=${BUILD}      \
+              --with-tcl=${PREFIX}  \
+              --without-readline    \
+              --with-libedit        \
+              --with-crypto-impl=openssl
+  make -j${CPU_COUNT} ${VERBOSE_AT}
+  if [ "${PY_VER}" == "2.7" ]; then
+    make check
+  fi
+  make install
+popd
