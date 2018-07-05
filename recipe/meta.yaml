@@ -41,7 +41,7 @@ requirements:
     - {{ pin_compatible('libedit') }}  # [unix]
     - openssl
     - tk
-    - python 2.7.* # [win and vc == 9]
+    - python 2.7.*  # [win and vc == 9]
 
 test:
   commands:
