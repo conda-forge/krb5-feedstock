@@ -14,7 +14,7 @@ source:
     - lshutil.patch  # [win and vc<14]
 
 build:
-  number: 0
+  number: 1000
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
