@@ -1,4 +1,4 @@
-{% set version = "1.16.2" %}
+{% set version = "1.16.3" %}
 
 package:
   name: krb5
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
-  sha256: 92f62e5a54404d22aa2a7eee9fba64d1be8d10d8dd3aa052e1799993208acce4
+  sha256: abc88d8f69f135ccca4c28a7ebe10f4ee52a06a453e612e98f61a4a037e13d2b
   patches:
     - eafnosupport.patch  # [win and vc<14]
     - jsoneoverflow.patch  # [win and vc<14]
