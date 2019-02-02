@@ -31,7 +31,8 @@ requirements:
     - perl  5.20.*   # [win]
     - pkg-config  # [unix]
     - make   # [unix]
-    - python 2.7
+    - python 2.7  # [unix and not aarch64]
+    - python 3.7  # [aarch64]
   host:
     - msinttypes  # [win and vc<14]
     - libedit  # [unix]
