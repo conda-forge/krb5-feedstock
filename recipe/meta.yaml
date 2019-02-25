@@ -12,6 +12,7 @@ source:
     - jsoneoverflow.patch  # [win and vc<14]
     - afxres.patch  # [win and vc<14]
     - lshutil.patch  # [win and vc<14]
+    - escape_curly_braces.patch
 
 build:
   number: 1001
@@ -25,24 +26,21 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - bison  # [not win]
-    - autoconf  # [not win]
-    - posix  # [win]
-    - perl  5.20.*   # [win]
+    - bison       # [not win]
+    - autoconf    # [not win]
+    - posix       # [win]
+    - perl        # [win]
     - pkg-config  # [unix]
-    - make   # [unix]
-    - python 2.7  # [unix and not aarch64]
-    - python 3.7  # [aarch64]
+    - make        # [unix]
+      python 3.7
   host:
     - msinttypes  # [win and vc<14]
-    - libedit  # [unix]
+    - libedit     # [unix]
     - openssl
-    - tk
+     - tk
   run:
     - {{ pin_compatible('libedit') }}  # [unix]
-    - openssl
-    - tk
-    - python 2.7.*  # [win and vc == 9]
+
 
 test:
   commands:
