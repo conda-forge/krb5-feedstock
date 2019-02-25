@@ -12,7 +12,7 @@ source:
     - jsoneoverflow.patch  # [win and vc<14]
     - afxres.patch  # [win and vc<14]
     - lshutil.patch  # [win and vc<14]
-    - escape_curly_braces.patch
+    # - escape_curly_braces.patch
 
 build:
   number: 1001
