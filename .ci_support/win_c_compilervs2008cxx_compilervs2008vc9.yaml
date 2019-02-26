@@ -7,9 +7,13 @@ channel_targets:
 cxx_compiler:
 - vs2008
 openssl:
-- 1.0.2
+- 1.1.1a
+perl:
+- '5.26'
 pin_run_as_build:
   openssl:
+    max_pin: x.x.x
+  perl:
     max_pin: x.x.x
   tk:
     max_pin: x.x

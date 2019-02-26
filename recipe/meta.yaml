@@ -12,9 +12,10 @@ source:
     - jsoneoverflow.patch  # [win and vc<14]
     - afxres.patch  # [win and vc<14]
     - lshutil.patch  # [win and vc<14]
+    # - escape_curly_braces.patch
 
 build:
-  number: 1000
+  number: 1001
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
@@ -25,26 +26,28 @@ requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - bison  # [not win]
-    - autoconf  # [not win]
-    - posix  # [win]
-    - perl  5.20.*   # [win]
+    - bison       # [not win]
+    - autoconf    # [not win]
+    - posix       # [win]
+    - perl        # [win]
     - pkg-config  # [unix]
-    - make   # [unix]
-    - python 2.7  # [unix and not aarch64]
-    - python 3.7  # [aarch64]
+    - make        # [unix]
+    - python 3.7  # [not win]
+    - python      # [win]
+    - openssl
   host:
     - msinttypes  # [win and vc<14]
-    - libedit  # [unix]
+    - libedit     # [unix]
     - openssl
     - tk
   run:
     - {{ pin_compatible('libedit') }}  # [unix]
-    - openssl
-    - tk
-    - python 2.7.*  # [win and vc == 9]
 
 test:
+  requires:
+    # without this the solver goes into a strange corner and returns python 2.0
+    - python 3.7.*  # [not win]
+    - python        # [win]
   commands:
     - conda inspect linkages -p $PREFIX krb5  # [not win]
     - conda inspect objects -p $PREFIX krb5  # [osx]
