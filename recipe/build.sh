@@ -19,7 +19,7 @@ pushd src
               --with-tcl=${PREFIX}        \
               --without-readline          \
               --with-libedit              \
-              --with-crypto-impl=openssl  \ 
+              --with-crypto-impl=openssl  \
               --without-system-verto
   make -j${CPU_COUNT} ${VERBOSE_AT}
   if [ "${PY_VER}" == "2.7" ]; then
