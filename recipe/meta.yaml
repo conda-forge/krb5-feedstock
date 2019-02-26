@@ -33,6 +33,7 @@ requirements:
     - pkg-config  # [unix]
     - make        # [unix]
     - python 3.7
+    - openssl
   host:
     - msinttypes  # [win and vc<14]
     - libedit     # [unix]
