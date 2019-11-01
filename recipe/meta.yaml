@@ -15,7 +15,7 @@ source:
     # - escape_curly_braces.patch
 
 build:
-  number: 1001
+  number: 1002
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
