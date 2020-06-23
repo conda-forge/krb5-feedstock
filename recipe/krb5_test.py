@@ -1,4 +1,3 @@
-
 # just load libfreexl using ctypes
 import os
 import sys
