@@ -20,7 +20,9 @@ pushd src
               --without-readline          \
               --with-libedit              \
               --with-crypto-impl=openssl  \
-              --without-system-verto
+              --without-system-verto      \
+              --disable-shared            \
+              --enable-static
 
   make -j${CPU_COUNT} ${VERBOSE_AT}
   make install
