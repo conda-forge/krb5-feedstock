@@ -57,10 +57,10 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>win_c_compilervs2015cxx_compilervs2015vc14</td>
+              <td>win</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=506&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/krb5-feedstock?branchName=master&jobName=win&configuration=win_c_compilervs2015cxx_compilervs2015vc14" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/krb5-feedstock?branchName=master&jobName=win&configuration=win_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -77,6 +77,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-krb5-green.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-krb5--static-green.svg)](https://anaconda.org/conda-forge/krb5-static) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/krb5-static.svg)](https://anaconda.org/conda-forge/krb5-static) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/krb5-static.svg)](https://anaconda.org/conda-forge/krb5-static) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/krb5-static.svg)](https://anaconda.org/conda-forge/krb5-static) |
 
 Installing krb5
 ===============
@@ -87,10 +88,10 @@ Installing `krb5` from the `conda-forge` channel can be achieved by adding `cond
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `krb5` can be installed with:
+Once the `conda-forge` channel has been enabled, `krb5, krb5-static` can be installed with:
 
 ```
-conda install krb5
+conda install krb5 krb5-static
 ```
 
 It is possible to list all of the versions of `krb5` available on your platform with:
@@ -167,4 +168,5 @@ Feedstock Maintainers
 * [@mingwandroid](https://github.com/mingwandroid/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@pelson](https://github.com/pelson/)
+* [@wolfv](https://github.com/wolfv/)
 
