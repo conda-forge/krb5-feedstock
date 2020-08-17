@@ -13,9 +13,11 @@ fi
 # https://github.com/conda-forge/bison-feedstock/issues/7
 export M4="${BUILD_PREFIX}/bin/m4"
 
-if [[ "$target_platform" == osx-* ]]; then
+if [[ "$target_platform" == "osx-arm64" ]]; then
     # This can't be deduced when cross-compiling
     export krb5_cv_attr_constructor_destructor=yes
+    export ac_cv_func_regcomp=yes
+    export ac_cv_printf_positional=yes
 fi
 
 pushd src
