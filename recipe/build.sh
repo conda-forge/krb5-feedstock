@@ -18,7 +18,7 @@ if [[ "$target_platform" == "osx-arm64" ]]; then
     export krb5_cv_attr_constructor_destructor=yes,yes
     export ac_cv_func_regcomp=yes
     export ac_cv_printf_positional=yes
-    sed -i.bak "s@mig -header@mig -header -cc $CC@g" src/lib/krb5/ccache/Makefile.in
+    sed -i.bak "s@mig -header@mig -header -cc $(which $CC)@g" src/lib/krb5/ccache/Makefile.in
 fi
 
 pushd src
