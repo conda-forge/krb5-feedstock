@@ -13,6 +13,11 @@ fi
 # https://github.com/conda-forge/bison-feedstock/issues/7
 export M4="${BUILD_PREFIX}/bin/m4"
 
+if [[ "$target_platform" == osx-* ]]; then
+    # This can't be deduced when cross-compiling
+    export krb5_cv_attr_constructor_destructor=yes
+fi
+
 pushd src
   autoreconf -i
   ./configure --prefix=${PREFIX}          \
