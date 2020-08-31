@@ -1,14 +1,9 @@
 #!/bin/bash
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/libtool/build-aux/config.* ./src/config
-set -x
+set -xe
 
-export CPPFLAGS="${CPPFLAGS/-DNDEBUG/} -I${PREFIX}/include"
-export LDFLAGS="${LDFLAGS} -L${PREFIX}/lib"
-
-if [[ ${HOST} =~ .*linux.* ]]; then
-  export LDFLAGS="$LDFLAGS -Wl,--disable-new-dtags"
-fi
+export CPPFLAGS="${CPPFLAGS/-DNDEBUG/}"
 
 # https://github.com/conda-forge/bison-feedstock/issues/7
 export M4="${BUILD_PREFIX}/bin/m4"
