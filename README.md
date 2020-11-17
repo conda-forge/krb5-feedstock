@@ -5,11 +5,9 @@ Home: http://web.mit.edu/kerberos/
 
 Package license: MIT
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/krb5-feedstock/blob/master/LICENSE.txt)
 
 Summary: A network authentication protocol.
-
-
 
 Current build status
 ====================
