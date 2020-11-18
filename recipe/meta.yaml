@@ -1,4 +1,4 @@
-{% set version = "1.17.1" %}
+{% set version = "1.17.2" %}
 
 package:
   name: krb5
@@ -6,15 +6,15 @@ package:
 
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
-  sha256: 8bdedbfb0bbb245217e23290437916d70b315514e6f7cc088b6e82d1310afe0b
+  sha256: 30f29cef5f18b02fae2210ec12382eab88ba66c2ecfa482e2f3232bed30d7e5d
 
 build:
-  number: 3
-  skip: True  # [win and vc<14]
+  number: 0
+  skip: true  # [win and vc<14]
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
-  missing_dso_whitelist:          # [osx]
+  missing_dso_whitelist:   # [osx]
     - /usr/lib/libresolv.9.dylib  # [osx]
 
 requirements:
@@ -46,8 +46,6 @@ outputs:
         - python 3.7.*  # [not win]
         - python        # [win]
       commands:
-        - conda inspect linkages -p $PREFIX krb5  # [not win]
-        - conda inspect objects -p $PREFIX krb5  # [osx]
         - python krb5_test.py
 
   - name: krb5-static
@@ -82,7 +80,7 @@ about:
   home: http://web.mit.edu/kerberos/
   license: MIT
   license_file: doc/notice.rst
-  summary: 'A network authentication protocol.'
+  summary: A network authentication protocol.
 
 extra:
   recipe-maintainers:
