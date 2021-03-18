@@ -9,7 +9,7 @@ source:
   sha256: 30f29cef5f18b02fae2210ec12382eab88ba66c2ecfa482e2f3232bed30d7e5d
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
@@ -28,7 +28,7 @@ requirements:
     - perl        # [win]
     - pkg-config  # [unix]
     - make        # [unix]
-    - python 3.7  # [not win]
+    - python >=3.7  # [not win]
     - python      # [win]
     - openssl
   host:
@@ -43,7 +43,7 @@ outputs:
     test:
       requires:
         # without this the solver goes into a strange corner and returns python 2.0
-        - python 3.7.*  # [not win]
+        - python >=3.7  # [not win]
         - python        # [win]
       commands:
         - python krb5_test.py
@@ -62,7 +62,7 @@ outputs:
         - perl        # [win]
         - pkg-config  # [unix]
         - make        # [unix]
-        - python 3.7  # [not win]
+        - python >=3.7  # [not win]
         - python      # [win]
         - openssl
       host:
