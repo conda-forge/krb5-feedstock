@@ -30,6 +30,7 @@ requirements:
     - make        # [unix]
     - python 3.7  # [not win]
     - python      # [win]
+    - gettext
   host:
     - libedit     # [unix]
     - openssl
@@ -63,6 +64,7 @@ outputs:
         - make        # [unix]
         - python 3.7  # [not win]
         - python      # [win]
+        - gettext
       host:
         - libedit     # [unix]
         - openssl
