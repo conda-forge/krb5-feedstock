@@ -7,9 +7,11 @@ package:
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
   sha256: 84a1dc720e436926359808cc62543946897bf797aba3588b373165f127532cd8
+  patches:
+    - 0001-Fix-softpkcs11-build-issues-with-openssl-3.0.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
@@ -30,7 +32,7 @@ requirements:
     - make        # [unix]
     - python 3.7  # [not win]
     - python      # [win]
-    - openssl
+    - gettext
   host:
     - libedit     # [unix]
     - openssl
@@ -64,7 +66,7 @@ outputs:
         - make        # [unix]
         - python 3.7  # [not win]
         - python      # [win]
-        - openssl
+        - gettext
       host:
         - libedit     # [unix]
         - openssl
