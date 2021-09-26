@@ -9,7 +9,7 @@ source:
   sha256: 84a1dc720e436926359808cc62543946897bf797aba3588b373165f127532cd8
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
@@ -28,8 +28,7 @@ requirements:
     - perl        # [win]
     - pkg-config  # [unix]
     - make        # [unix]
-    - python 3.7  # [not win]
-    - python      # [win]
+    - python *    # [not win]
     - openssl
   host:
     - libedit     # [unix]
@@ -40,13 +39,6 @@ requirements:
 
 outputs:
   - name: krb5
-    test:
-      requires:
-        # without this the solver goes into a strange corner and returns python 2.0
-        - python 3.7.*  # [not win]
-        - python        # [win]
-      commands:
-        - python krb5_test.py
 
   - name: krb5-static
     build:
@@ -75,6 +67,11 @@ outputs:
     test:
       commands:
         - test -f ${PREFIX}/lib/libk5crypto.a  # [unix]
+
+test:
+  commands:
+    - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}  # [unix]
+    - if not exist %LIBRARY_BIN%\krb5_64.dll     # [win]
 
 about:
   home: http://web.mit.edu/kerberos/
