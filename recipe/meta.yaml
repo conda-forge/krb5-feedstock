@@ -37,6 +37,11 @@ requirements:
   run:
     - {{ pin_compatible('libedit') }}  # [unix]
 
+test:
+  commands:
+    - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}  # [unix]
+    - if not exist %LIBRARY_BIN%\krb5_64.dll     # [win]
+
 outputs:
   - name: krb5
 
@@ -67,11 +72,6 @@ outputs:
     test:
       commands:
         - test -f ${PREFIX}/lib/libk5crypto.a  # [unix]
-
-test:
-  commands:
-    - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}  # [unix]
-    - if not exist %LIBRARY_BIN%\krb5_64.dll     # [win]
 
 about:
   home: http://web.mit.edu/kerberos/
