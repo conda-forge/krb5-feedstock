@@ -39,8 +39,8 @@ requirements:
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}  # [unix]
-    - if not exist %LIBRARY_BIN%\krb5_64.dll     # [win]
+    - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}         # [unix]
+    - if not exist %LIBRARY_BIN%\krb5_64.dll exit 1     # [win]
 
 outputs:
   - name: krb5
