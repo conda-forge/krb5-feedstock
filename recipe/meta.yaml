@@ -11,7 +11,7 @@ source:
     - 0001-Fix-softpkcs11-build-issues-with-openssl-3.0.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
@@ -30,8 +30,7 @@ requirements:
     - perl        # [win]
     - pkg-config  # [unix]
     - make        # [unix]
-    - python 3.7  # [not win]
-    - python      # [win]
+    - python *    # [not win]
     - gettext
   host:
     - libedit     # [unix]
@@ -40,15 +39,13 @@ requirements:
   run:
     - {{ pin_compatible('libedit') }}  # [unix]
 
+test:
+  commands:
+    - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}         # [unix]
+    - if not exist %LIBRARY_BIN%\krb5_64.dll exit 1     # [win]
+
 outputs:
   - name: krb5
-    test:
-      requires:
-        # without this the solver goes into a strange corner and returns python 2.0
-        - python 3.7.*  # [not win]
-        - python        # [win]
-      commands:
-        - python krb5_test.py
 
   - name: krb5-static
     build:
