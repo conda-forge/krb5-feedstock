@@ -11,7 +11,7 @@ source:
     - 0001-Fix-softpkcs11-build-issues-with-openssl-3.0.patch
 
 build:
-  number: 3
+  number: 4
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
@@ -35,6 +35,7 @@ requirements:
     - libedit     # [unix]
     - openssl
     - tk
+    - keyutils    # [linux]
   run:
     - {{ pin_compatible('libedit') }}  # [unix]
 

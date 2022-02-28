@@ -30,6 +30,7 @@ pushd src
               --with-crypto-impl=openssl  \
               --without-system-verto      \
               --disable-shared            \
+              --with-keyutils=${PREFIX}   \
               --enable-static
 
   make -j${CPU_COUNT} ${VERBOSE_AT}

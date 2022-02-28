@@ -30,6 +30,7 @@ pushd src
               --without-readline          \
               --with-libedit              \
               --with-crypto-impl=openssl  \
+              --with-keyutils=${PREFIX}   \
               --without-system-verto
 
   make -j${CPU_COUNT} ${VERBOSE_AT}
