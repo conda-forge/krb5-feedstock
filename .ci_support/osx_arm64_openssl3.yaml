@@ -16,13 +16,8 @@ macos_machine:
 - arm64-apple-darwin20.0.0
 openssl:
 - '3'
-pin_run_as_build:
-  tk:
-    max_pin: x.x
 target_platform:
 - osx-arm64
-tk:
-- '8.6'
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
