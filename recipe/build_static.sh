@@ -24,7 +24,7 @@ pushd src
   ./configure --prefix=${PREFIX}          \
               --host=${HOST}              \
               --build=${BUILD}            \
-              --with-tcl=${PREFIX}        \
+              --without-tcl               \
               --without-readline          \
               --with-libedit              \
               --with-crypto-impl=openssl  \
