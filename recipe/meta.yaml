@@ -7,8 +7,6 @@ package:
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
   sha256: ec3861c3bec29aa8da9281953c680edfdab1754d1b1db8761c1d824e4b25496a
-  patches:
-    - 0001-Fix-softpkcs11-build-issues-with-openssl-3.0.patch
 
 build:
   number: 0
