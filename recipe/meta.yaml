@@ -1,4 +1,4 @@
-{% set version = "1.19.3" %}
+{% set version = "1.20.1" %}
 
 package:
   name: krb5
@@ -6,9 +6,7 @@ package:
 
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
-  sha256: 131890da54fff2ac339e93facf9d8067f7db53b15181f38104c0b56a6f2acdee
-  patches:
-    - 0001-Fix-softpkcs11-build-issues-with-openssl-3.0.patch
+  sha256: ec3861c3bec29aa8da9281953c680edfdab1754d1b1db8761c1d824e4b25496a
 
 build:
   number: 0
