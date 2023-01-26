@@ -9,7 +9,7 @@ source:
   sha256: ec3861c3bec29aa8da9281953c680edfdab1754d1b1db8761c1d824e4b25496a
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
@@ -63,7 +63,7 @@ outputs:
         - gettext
       host:
         - libedit     # [unix]
-        - openssl
+        - libopenssl-static
       run:
         - {{ pin_subpackage('krb5', exact=True) }}
         - {{ pin_compatible('libedit') }}  # [unix]
