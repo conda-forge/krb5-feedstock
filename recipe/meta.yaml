@@ -1,4 +1,4 @@
-{% set version = "1.20.1" %}
+{% set version = "1.21.1" %}
 
 package:
   name: krb5
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
-  sha256: ec3861c3bec29aa8da9281953c680edfdab1754d1b1db8761c1d824e4b25496a
+  sha256: 72425658b8ede9948e3b5517269a9220f70ffad25e6fc73e352ca11360233d3b
 
 build:
   number: 0
