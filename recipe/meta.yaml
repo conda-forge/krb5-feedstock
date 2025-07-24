@@ -60,8 +60,7 @@ outputs:
         - perl        # [win]
         - pkg-config  # [unix]
         - make        # [unix]
-        - python 3.7  # [not win]
-        - python      # [win]
+        - python {{ python_min }}
         - gettext
       host:
         - libedit     # [unix]
