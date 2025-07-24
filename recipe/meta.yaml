@@ -9,7 +9,7 @@ source:
   sha256: 2157d92020d408ed63ebcd886a92d1346a1383b0f91123a0473b4f69b4a24861
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
