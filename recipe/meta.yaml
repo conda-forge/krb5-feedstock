@@ -7,6 +7,10 @@ package:
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
   sha256: 2157d92020d408ed63ebcd886a92d1346a1383b0f91123a0473b4f69b4a24861
+  patches:
+    # Backports https://github.com/krb5/krb5/pull/1302 to 1.21.3. 
+    # This PR is part of beta1 1.22.0.
+    - 0001-Get-arm64-windows-builds-working.patch  # [win]
 
 build:
   number: 0

@@ -1,0 +1,79 @@
+From 0c9c2a82438eda9a606cf1a90b0888609c05dcd0 Mon Sep 17 00:00:00 2001
+From: Gerald Combs <gerald@wireshark.org>
+Date: Sun, 14 May 2023 09:46:13 -0700
+Subject: [PATCH] Get arm64-windows builds working
+
+Update various checks to include "ARM64" and "_M_ARM64".
+
+Remove a /BASE flag which fixes an "ARM64 image cannot have base
+address below 4GB" error and which arguably shouldn't be used in
+modern times since it prevents using dynamic base addresses.
+
+ticket: 9094 (new)
+---
+ src/config/win-post.in                  | 2 +-
+ src/config/win-pre.in                   | 4 ++--
+ src/lib/Makefile.in                     | 2 +-
+ src/lib/crypto/builtin/aes/brg_endian.h | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/config/win-post.in b/src/config/win-post.in
+index 3f43bda77..42b2b011a 100644
+--- a/src/config/win-post.in
++++ b/src/config/win-post.in
+@@ -63,7 +63,7 @@ check-windows: check-recurse
+ !endif # WINSUBDIRS
+ 
+ # Use 64-bit LIBNAME and OBJFILE on 64-bit platforms, if defined.
+-!if ("$(CPU)" == "IA64") || ("$(CPU)" == "AMD64") || ("$(CPU)" == "ALPHA64")
++!if ("$(CPU)" == "IA64") || ("$(CPU)" == "AMD64") || ("$(CPU)" == "ALPHA64") || ("$(CPU)" == "ARM64")
+ !if defined(WIN64LIBNAME)
+ LIBNAME=$(WIN64LIBNAME)
+ !endif
+diff --git a/src/config/win-pre.in b/src/config/win-pre.in
+index 8ac5fa2f8..ba3c9ac7c 100644
+--- a/src/config/win-pre.in
++++ b/src/config/win-pre.in
+@@ -31,11 +31,11 @@ CPU=i386
+ CPU=i386
+ !endif # CPU == X86
+ 
+-!if ( "$(CPU)" != "i386" ) && ( "$(CPU)" != "ALPHA" ) && ( "$(CPU)" != "ALPHA64" ) && ( "$(CPU)" != "IA64" ) && ( "$(CPU)" != "AMD64" )
++!if ( "$(CPU)" != "i386" ) && ( "$(CPU)" != "ALPHA" ) && ( "$(CPU)" != "ALPHA64" ) && ( "$(CPU)" != "IA64" ) && ( "$(CPU)" != "AMD64" ) && ( "$(CPU)" != "ARM64" )
+ !error Must specify CPU environment variable ( CPU=i386, CPU=ALPHA, CPU=ALPHA64,CPU=IA64, CPU=AMD64)
+ !endif
+ 
+-!if  ("$(CPU)" == "IA64" ) || ("$(CPU)" == "AMD64" ) || ("$(CPU)" == "ALPHA64" )
++!if  ("$(CPU)" == "IA64" ) || ("$(CPU)" == "AMD64" ) || ("$(CPU)" == "ALPHA64" ) || ("$(CPU)" == "ARM64" )
+ BITS=64
+ !else
+ BITS=32
+diff --git a/src/lib/Makefile.in b/src/lib/Makefile.in
+index 3b812ed83..858d715e3 100644
+--- a/src/lib/Makefile.in
++++ b/src/lib/Makefile.in
+@@ -59,7 +59,7 @@ clean-windows::
+ ##WIN32##WINLIBS = kernel32.lib ws2_32.lib user32.lib shell32.lib oldnames.lib \
+ ##WIN32##	version.lib secur32.lib advapi32.lib gdi32.lib delayimp.lib \
+ ##WIN32##	$(WINCRTEXTRA)
+-##WIN32##WINDLLFLAGS = $(DLL_LINKOPTS) -base:0x1c000000 /DELAYLOAD:secur32.dll \
++##WIN32##WINDLLFLAGS = $(DLL_LINKOPTS) /DELAYLOAD:secur32.dll \
+ ##WIN32##	/DELAYLOAD:advapi32.dll /DELAY:UNLOAD /DELAY:NOBIND
+ 
+ ##WIN32##S_GLUE=$(OUTPRE)support_glue.obj
+diff --git a/src/lib/crypto/builtin/aes/brg_endian.h b/src/lib/crypto/builtin/aes/brg_endian.h
+index c0e32b7cb..584bd17d3 100644
+--- a/src/lib/crypto/builtin/aes/brg_endian.h
++++ b/src/lib/crypto/builtin/aes/brg_endian.h
+@@ -119,7 +119,7 @@ Issue Date: 10/09/2018
+       defined( __i386__ )  || defined( _M_I86 )  || defined( _M_IX86 )    || \
+       defined( __OS2__ )   || defined( sun386 )  || defined( __TURBOC__ ) || \
+       defined( vax )       || defined( vms )     || defined( VMS )        || \
+-      defined( __VMS )     || defined( _M_X64 )
++      defined( __VMS )     || defined( _M_X64 )  || defined( _M_ARM64 )
+ #  define PLATFORM_BYTE_ORDER IS_LITTLE_ENDIAN
+ 
+ #elif defined( AMIGA )   || defined( applec )    || defined( __AS400__ )  || \
+-- 
+2.47.0.windows.2
+
