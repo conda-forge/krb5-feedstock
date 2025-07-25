@@ -15,4 +15,4 @@ openssl:
 perl:
 - 5.32.1
 target_platform:
-- win-64
+- win-arm64
