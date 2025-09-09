@@ -23,7 +23,7 @@ krb5:
 openssl:
 - '3'
 python_min:
-- '3.9'
+- '3.10'
 target_platform:
 - linux-64
 zip_keys:

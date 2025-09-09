@@ -15,6 +15,6 @@ openssl:
 perl:
 - 5.32.1
 python_min:
-- '3.9'
+- '3.10'
 target_platform:
 - win-64
