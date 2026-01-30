@@ -11,7 +11,7 @@ cxx_compiler:
 krb5:
 - '1.21'
 openssl:
-- '3'
+- '3.5'
 perl:
 - 5.32.1
 python_min:
