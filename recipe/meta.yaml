@@ -9,7 +9,7 @@ source:
   sha256: 289f5bb81d1f2f8d5eecebe56a056aeed95d35fd9bb4a7071c5dd7ad4b3fe888
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
     - {{ pin_subpackage('krb5', max_pin='x.x') }}
@@ -60,8 +60,7 @@ outputs:
         - perl        # [win]
         - pkg-config  # [unix]
         - make        # [unix]
-        - python 3.7  # [not win]
-        - python      # [win]
+        - python {{ python_min }}
         - gettext
       host:
         - libedit     # [unix]

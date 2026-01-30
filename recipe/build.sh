@@ -9,12 +9,9 @@ export CPPFLAGS="${CPPFLAGS/-DNDEBUG/}"
 export M4="${BUILD_PREFIX}/bin/m4"
 
 if [[ "$target_platform" == "osx-arm64" ]]; then
-    # This can't be deduced when cross-compiling
-    export krb5_cv_attr_constructor_destructor=yes,yes
-    export ac_cv_func_regcomp=yes
-    export ac_cv_printf_positional=yes
     sed -i.bak "s@mig -header@mig -cc $(which $CC) -arch arm64 -header@g" src/lib/krb5/ccache/Makefile.in
-elif [[ "${target_platform}" == "linux-ppc64le" ]]; then
+fi
+if [[ "$target_platform" != "$build_platform" ]]; then
     # This can't be deduced when cross-compiling
     export krb5_cv_attr_constructor_destructor=yes,yes
     export ac_cv_func_regcomp=yes

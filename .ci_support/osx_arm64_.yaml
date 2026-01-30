@@ -1,7 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
 MACOSX_SDK_VERSION:
-- '11.0'
+- '14.5'
 c_compiler:
 - clang
 c_compiler_version:
@@ -24,6 +24,8 @@ macos_machine:
 - arm64-apple-darwin20.0.0
 openssl:
 - '3.5'
+python_min:
+- '3.10'
 target_platform:
 - osx-arm64
 zip_keys:
