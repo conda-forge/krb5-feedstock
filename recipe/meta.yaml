@@ -18,17 +18,17 @@ build:
 
 requirements:
   build:
-    - libtool  # [unix]
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
-    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
-    - bison       # [not win]
-    - autoconf    # [not win]
+    - autoconf    # [unix]
+    - bison       # [unix]
+    - make        # [unix]
+    - libtool     # [unix]
+    - pkg-config  # [unix]
+    - python *    # [unix]
     - posix       # [win]
     - perl        # [win]
-    - pkg-config  # [unix]
-    - make        # [unix]
-    - python *    # [not win]
     - gettext
   host:
     - libedit     # [unix]
@@ -51,15 +51,13 @@ outputs:
     script: build_static.sh
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('c') }}
-        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
-        - bison       # [not win]
-        - autoconf    # [not win]
-        - posix       # [win]
-        - perl        # [win]
-        - pkg-config  # [unix]
+        - autoconf    # [unix]
+        - bison       # [unix]
         - make        # [unix]
+        - pkg-config  # [unix]
         - python {{ python_min }}
         - gettext
       host:
