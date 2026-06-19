@@ -15,14 +15,7 @@ Current build status
 ====================
 
 
-<table><tr>
-    <td>GitHub Actions</td>
-    <td>
-      <a href="https://github.com/conda-forge/krb5-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/krb5-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
-      </a>
-    </td>
-  </tr>
+<table>
     
   <tr>
     <td>Azure</td>
@@ -35,28 +28,7 @@ Current build status
         </summary>
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
-          <tbody><tr>
-              <td>osx_64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=506&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/krb5-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=506&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/krb5-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=506&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/krb5-feedstock?branchName=main&jobName=win&configuration=win%20win_64_" alt="variant">
-                </a>
-              </td>
-            </tr>
+          <tbody>
           </tbody>
         </table>
       </details>
@@ -70,7 +42,6 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-krb5-green.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/krb5.svg)](https://anaconda.org/conda-forge/krb5) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-krb5--static-green.svg)](https://anaconda.org/conda-forge/krb5-static) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/krb5-static.svg)](https://anaconda.org/conda-forge/krb5-static) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/krb5-static.svg)](https://anaconda.org/conda-forge/krb5-static) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/krb5-static.svg)](https://anaconda.org/conda-forge/krb5-static) |
 
 Installing krb5
 ===============
@@ -82,16 +53,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `krb5, krb5-static` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `krb5` can be installed with `conda`:
 
 ```
-conda install krb5 krb5-static
+conda install krb5
 ```
 
 or with `mamba`:
 
 ```
-mamba install krb5 krb5-static
+mamba install krb5
 ```
 
 It is possible to list all of the versions of `krb5` available on your platform with `conda`:
