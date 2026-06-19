@@ -9,11 +9,32 @@ set KRB_INSTALL_DIR=%LIBRARY_PREFIX%
 :: Need this set or libs/Makefile fails
 set VISUALSTUDIOVERSION=%VS_MAJOR%0
 
+if not "%build_platform%"=="%target_platform%" (
+    :: prep-windows uses CPU while generating the Windows makefiles.
+    set CPU=ARM64
+)
+
 cd src
 
 :: Create Makefile for Windows.
 nmake -f Makefile.in prep-windows
 if errorlevel 1 exit 1
+
+if not "%build_platform%"=="%target_platform%" (
+    :: After prep-windows, prebuild the helper executables into the paths nmake expects.
+    setlocal
+    set "LIB=%LIB_FOR_BUILD%"
+    set "INCLUDE=%INCLUDE_FOR_BUILD%"
+
+    if not exist "obj\%CPU%\rel" mkdir "obj\%CPU%\rel"
+    "%CC_FOR_BUILD%" /Fe:obj\%CPU%\rel\wconfig.exe /Fo:obj\%CPU%\rel\wconfig.obj wconfig.c
+    if errorlevel 1 exit 1
+
+    if not exist "util\windows\obj\%CPU%\rel" mkdir "util\windows\obj\%CPU%\rel"
+    "%CC_FOR_BUILD%" /Fe:util\windows\obj\%CPU%\rel\libecho.exe /Fo:util\windows\obj\%CPU%\rel\libecho.obj util\windows\libecho.c
+    if errorlevel 1 exit 1
+    endlocal
+)
 
 :: Build the sources
 nmake NODEBUG=1
