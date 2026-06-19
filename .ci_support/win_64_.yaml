@@ -9,7 +9,7 @@ channel_targets:
 cxx_compiler:
 - vs2022
 krb5:
-- '1.21'
+- '1.22'
 openssl:
 - '3.5'
 perl:
