@@ -9,10 +9,12 @@ channel_targets:
 cxx_compiler:
 - vs2022
 krb5:
-- '1.21'
+- '1.22'
 openssl:
 - '3.5'
 perl:
 - 5.32.1
+python_min:
+- '3.10'
 target_platform:
 - win-64
