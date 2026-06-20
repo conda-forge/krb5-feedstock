@@ -64,7 +64,7 @@ outputs:
         - gettext
       host:
         - libedit     # [unix]
-        - openssl
+        - libopenssl-static
       run:
         - {{ pin_subpackage('krb5', exact=True) }}
         - {{ pin_compatible('libedit') }}  # [unix]
