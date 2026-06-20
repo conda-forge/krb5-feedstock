@@ -1,5 +1,4 @@
 set NO_LEASH=1
-setlocal enabledelayedexpansion
 
 :: Finds stdint.h from msinttypes.
 set INCLUDE=%LIBRARY_INC%;%INCLUDE%
@@ -12,13 +11,12 @@ set VISUALSTUDIOVERSION=%VS_MAJOR%0
 
 if not "%build_platform%"=="%target_platform%" (
     set CPU=ARM64
-    >"!SRC_DIR!\cc_for_build.bat" (
-        echo @echo off
-        echo set "LIB=!LIB_FOR_BUILD!"
-        echo set "INCLUDE=!INCLUDE_FOR_BUILD!"
-        echo "!CC_FOR_BUILD!" %%*
-    )
-    set "CC_FOR_BUILD=!SRC_DIR!\cc_for_build.bat"
+    REM create a wrapper that sets LIB/INCLUDE correctly for build-native compilation
+    echo @echo off                          > %SRC_DIR%\cc_for_build.bat
+    echo set "LIB=%LIB_FOR_BUILD%"         >> %SRC_DIR%\cc_for_build.bat
+    echo set "INCLUDE=%INCLUDE_FOR_BUILD%" >> %SRC_DIR%\cc_for_build.bat
+    echo %CC_FOR_BUILD% %%*                >> %SRC_DIR%\cc_for_build.bat
+    set "CC_FOR_BUILD=%SRC_DIR%\cc_for_build.bat"
 )
 
 cd src

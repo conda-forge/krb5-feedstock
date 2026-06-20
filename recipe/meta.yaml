@@ -8,7 +8,7 @@ source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
   sha256: 289f5bb81d1f2f8d5eecebe56a056aeed95d35fd9bb4a7071c5dd7ad4b3fe888
   patches:
-    - 0001-fix-windows-arm64-cross-build.patch
+    - patches/0001-fix-windows-arm64-cross-build.patch  # [win]
 
 build:
   number: 1
