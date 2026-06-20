@@ -1,51 +1,21 @@
---- a/src/config/win-pre.in	2026-01-28 18:22:10
-+++ b/src/config/win-pre.in	2026-06-19 15:52:18
-@@ -126,6 +126,31 @@
- LOPTS=-nologo -incremental:no -manifest
- 
- CCLINKOPTION=
-+# Some Windows helper executables are run during the build.  When
-+# cross-compiling, build those helpers for the build machine rather
-+# than the target machine.
-+!ifndef BUILD_CC
-+BUILD_CC=$(CC)
-+!endif
-+!ifndef BUILD_CCLINKOPTION
-+BUILD_CCLINKOPTION=$(CCLINKOPTION)
-+!endif
-+!if "$(CC_FOR_BUILD)" != ""
-+BUILD_CC=$(CC_FOR_BUILD)
-+!endif
-+
-+!ifndef WCONFIG_CC
-+WCONFIG_CC=$(BUILD_CC)
-+!endif
-+!ifndef WCONFIG_CCLINKOPTION
-+WCONFIG_CCLINKOPTION=$(BUILD_CCLINKOPTION)
-+!endif
-+
-+MIDL_TARGET=
-+!if "$(CPU)" == "ARM64"
-+MIDL_TARGET=/env arm64
-+!endif
-+
- DEBUGOPT=/guard:cf /Zi
- 
- #if the compiler is vstudio 8, generate manifest
---- a/src/Makefile.in	2026-01-28 18:22:10
-+++ b/src/Makefile.in	2026-06-19 15:52:18
-@@ -122,7 +122,7 @@
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 01fb060..eef5100 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -122,7 +122,7 @@ config-windows: Makefile-windows
  # try to build wconfig on a config-windows.
  #
  ##DOS##$(WCONFIG_EXE): outpre-dir wconfig.c
 -##DOS##	$(CC) -Fe$@ -Fo$*.obj wconfig.c $(CCLINKOPTION)
-+##DOS##	$(WCONFIG_CC) -Fe$@ -Fo$*.obj wconfig.c $(WCONFIG_CCLINKOPTION)
++##DOS##	call "$(CC_FOR_BUILD)" -Fe$@ -Fo$*.obj wconfig.c $(CCLINKOPTION)
  ##DOS## $(_VC_MANIFEST_EMBED_EXE)
  
  ##DOS##MKFDEP=$(WCONFIG_EXE) config\win-pre.in config\win-post.in
---- a/src/ccapi/lib/win/Makefile.in	2026-01-28 18:22:10
-+++ b/src/ccapi/lib/win/Makefile.in	2026-06-19 15:52:18
-@@ -67,11 +67,11 @@
+diff --git a/src/ccapi/lib/win/Makefile.in b/src/ccapi/lib/win/Makefile.in
+index 0ad9590..83f3bb1 100644
+--- a/src/ccapi/lib/win/Makefile.in
++++ b/src/ccapi/lib/win/Makefile.in
+@@ -67,11 +67,11 @@ LFLAGS	= /nologo $(LOPTS)
  all: Makefile copysrc midl $(OUTPRE)$(CCLIB).dll finish
  
  ccs_request.h ccs_request_c.c ccs_request_s.c : ccs_request.idl ccs_request.acf
@@ -59,9 +29,11 @@
      ccs_reply.idl
  
  copysrc :
---- a/src/ccapi/server/win/Makefile.in	2026-01-28 18:22:10
-+++ b/src/ccapi/server/win/Makefile.in	2026-06-19 15:52:18
-@@ -72,11 +72,11 @@
+diff --git a/src/ccapi/server/win/Makefile.in b/src/ccapi/server/win/Makefile.in
+index 1c925a2..fb88326 100644
+--- a/src/ccapi/server/win/Makefile.in
++++ b/src/ccapi/server/win/Makefile.in
+@@ -72,11 +72,11 @@ LFLAGS	= /nologo $(LOPTS)
  all: Makefile copysrc midl $(OUTPRE)ccapiserver.exe finish
  
  ccs_request.h ccs_request_c.c ccs_request_s.c : ccs_request.idl ccs_request.acf
@@ -75,16 +47,47 @@
      ccs_reply.idl
  
  copysrc :
---- a/src/util/windows/Makefile.in	2026-01-28 18:22:10
-+++ b/src/util/windows/Makefile.in	2026-06-19 15:52:18
-@@ -2,8 +2,8 @@
+diff --git a/src/config/win-pre.in b/src/config/win-pre.in
+index 0bcb280..c709e6f 100644
+--- a/src/config/win-pre.in
++++ b/src/config/win-pre.in
+@@ -126,6 +126,24 @@ CCOPTS=-nologo /EHsc /W3 /we4020 /we4024 /we4047 $(PDB_OPTS) $(DLL_FILE_DEF)
+ LOPTS=-nologo -incremental:no -manifest
+ 
+ CCLINKOPTION=
++# Some Windows helper executables are run during the build.  When
++# cross-compiling, build those helpers for the build machine rather
++# than the target machine.
++!ifndef CC_FOR_BUILD
++CC_FOR_BUILD=$(CC)
++!endif
++!ifndef LIB_FOR_BUILD
++LIB_FOR_BUILD=$(LIB)
++!endif
++!ifndef INCLUDE_FOR_BUILD
++INCLUDE_FOR_BUILD=$(INCLUDE)
++!endif
++
++MIDL_TARGET=
++!if "$(CPU)" == "ARM64"
++MIDL_TARGET=/env arm64
++!endif
++
+ DEBUGOPT=/guard:cf /Zi
+ 
+ #if the compiler is vstudio 8, generate manifest
+diff --git a/src/util/windows/Makefile.in b/src/util/windows/Makefile.in
+index 3dfcde2..8b86d32 100644
+--- a/src/util/windows/Makefile.in
++++ b/src/util/windows/Makefile.in
+@@ -2,8 +2,8 @@ BUILDTOP = ..\..
  
  all-windows: $(OUTPRE)libecho.exe
  
 -$(OUTPRE)libecho.exe: $(OUTPRE)libecho.obj
 -	link -out:$@ $**
 +$(OUTPRE)libecho.exe: libecho.c
-+	$(BUILD_CC) -Fe$@ -Fo$(OUTPRE)libecho.obj libecho.c $(BUILD_CCLINKOPTION)
++	call "$(CC_FOR_BUILD)" -Fe$@ -Fo$(OUTPRE)libecho.obj libecho.c $(CCLINKOPTION)
  	$(_VC_MANIFEST_EMBED_EXE)
  	
  install-windows:
