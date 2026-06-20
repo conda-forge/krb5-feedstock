@@ -1,16 +1,3 @@
-diff --git a/src/Makefile.in b/src/Makefile.in
-index 01fb060..eef5100 100644
---- a/src/Makefile.in
-+++ b/src/Makefile.in
-@@ -122,7 +122,7 @@ config-windows: Makefile-windows
- # try to build wconfig on a config-windows.
- #
- ##DOS##$(WCONFIG_EXE): outpre-dir wconfig.c
--##DOS##	$(CC) -Fe$@ -Fo$*.obj wconfig.c $(CCLINKOPTION)
-+##DOS##	call "$(CC_FOR_BUILD)" -Fe$@ -Fo$*.obj wconfig.c $(CCLINKOPTION)
- ##DOS## $(_VC_MANIFEST_EMBED_EXE)
- 
- ##DOS##MKFDEP=$(WCONFIG_EXE) config\win-pre.in config\win-post.in
 diff --git a/src/ccapi/lib/win/Makefile.in b/src/ccapi/lib/win/Makefile.in
 index 0ad9590..83f3bb1 100644
 --- a/src/ccapi/lib/win/Makefile.in
@@ -51,17 +38,10 @@ diff --git a/src/config/win-pre.in b/src/config/win-pre.in
 index 0bcb280..c709e6f 100644
 --- a/src/config/win-pre.in
 +++ b/src/config/win-pre.in
-@@ -126,6 +126,18 @@ CCOPTS=-nologo /EHsc /W3 /we4020 /we4024 /we4047 $(PDB_OPTS) $(DLL_FILE_DEF)
+@@ -126,6 +126,11 @@ CCOPTS=-nologo /EHsc /W3 /we4020 /we4024 /we4047 $(PDB_OPTS) $(DLL_FILE_DEF)
  LOPTS=-nologo -incremental:no -manifest
  
  CCLINKOPTION=
-+# Some Windows helper executables are run during the build.  When
-+# cross-compiling, build those helpers for the build machine rather
-+# than the target machine.
-+!ifndef CC_FOR_BUILD
-+CC_FOR_BUILD=$(CC)
-+!endif
-+
 +MIDL_TARGET=
 +!if "$(CPU)" == "ARM64"
 +MIDL_TARGET=/env arm64
@@ -70,18 +50,3 @@ index 0bcb280..c709e6f 100644
  DEBUGOPT=/guard:cf /Zi
  
  #if the compiler is vstudio 8, generate manifest
-diff --git a/src/util/windows/Makefile.in b/src/util/windows/Makefile.in
-index 3dfcde2..8b86d32 100644
---- a/src/util/windows/Makefile.in
-+++ b/src/util/windows/Makefile.in
-@@ -2,8 +2,8 @@ BUILDTOP = ..\..
- 
- all-windows: $(OUTPRE)libecho.exe
- 
--$(OUTPRE)libecho.exe: $(OUTPRE)libecho.obj
--	link -out:$@ $**
-+$(OUTPRE)libecho.exe: libecho.c
-+	call "$(CC_FOR_BUILD)" -Fe$@ -Fo$(OUTPRE)libecho.obj libecho.c $(CCLINKOPTION)
- 	$(_VC_MANIFEST_EMBED_EXE)
- 	
- install-windows:
