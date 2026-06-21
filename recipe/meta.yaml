@@ -7,6 +7,9 @@ package:
 source:
   url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
   sha256: 289f5bb81d1f2f8d5eecebe56a056aeed95d35fd9bb4a7071c5dd7ad4b3fe888
+  patches:
+    # see https://github.com/krb5/krb5/pull/1528
+    - patches/0001-fix-windows-arm64-cross-build.patch  # [win]
 
 build:
   number: 1
@@ -18,17 +21,17 @@ build:
 
 requirements:
   build:
-    - libtool  # [unix]
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
-    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
-    - bison       # [not win]
-    - autoconf    # [not win]
+    - autoconf    # [unix]
+    - bison       # [unix]
+    - make        # [unix]
+    - libtool     # [unix]
+    - pkg-config  # [unix]
+    - python *    # [unix]
     - posix       # [win]
     - perl        # [win]
-    - pkg-config  # [unix]
-    - make        # [unix]
-    - python *    # [not win]
     - gettext
   host:
     - libedit     # [unix]
@@ -51,15 +54,13 @@ outputs:
     script: build_static.sh
     requirements:
       build:
+        - {{ stdlib('c') }}
         - {{ compiler('c') }}
-        - {{ stdlib("c") }}
         - {{ compiler('cxx') }}
-        - bison       # [not win]
-        - autoconf    # [not win]
-        - posix       # [win]
-        - perl        # [win]
-        - pkg-config  # [unix]
+        - autoconf    # [unix]
+        - bison       # [unix]
         - make        # [unix]
+        - pkg-config  # [unix]
         - python {{ python_min }}
         - gettext
       host:

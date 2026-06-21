@@ -1,0 +1,52 @@
+diff --git a/src/ccapi/lib/win/Makefile.in b/src/ccapi/lib/win/Makefile.in
+index 0ad9590..83f3bb1 100644
+--- a/src/ccapi/lib/win/Makefile.in
++++ b/src/ccapi/lib/win/Makefile.in
+@@ -67,11 +67,11 @@ LFLAGS	= /nologo $(LOPTS)
+ all: Makefile copysrc midl $(OUTPRE)$(CCLIB).dll finish
+ 
+ ccs_request.h ccs_request_c.c ccs_request_s.c : ccs_request.idl ccs_request.acf
+-    midl $(MIDL_OPTIMIZATION) $(MIDLI) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
++    midl $(MIDL_OPTIMIZATION) $(MIDLI) $(MIDL_TARGET) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
+     ccs_request.idl
+ 
+ ccs_reply.h   ccs_reply_c.c   ccs_reply_s.c   : ccs_reply.idl   ccs_reply.acf
+-    midl $(MIDL_OPTIMIZATION) $(MIDLI) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
++    midl $(MIDL_OPTIMIZATION) $(MIDLI) $(MIDL_TARGET) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
+     ccs_reply.idl
+ 
+ copysrc :
+diff --git a/src/ccapi/server/win/Makefile.in b/src/ccapi/server/win/Makefile.in
+index 1c925a2..fb88326 100644
+--- a/src/ccapi/server/win/Makefile.in
++++ b/src/ccapi/server/win/Makefile.in
+@@ -72,11 +72,11 @@ LFLAGS	= /nologo $(LOPTS)
+ all: Makefile copysrc midl $(OUTPRE)ccapiserver.exe finish
+ 
+ ccs_request.h ccs_request_c.c ccs_request_s.c : ccs_request.idl ccs_request.acf
+-    midl $(MIDL_OPTIMIZATION) $(MIDLI) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
++    midl $(MIDL_OPTIMIZATION) $(MIDLI) $(MIDL_TARGET) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
+     ccs_request.idl
+ 
+ ccs_reply.h   ccs_reply_c.c   ccs_reply_s.c   : ccs_reply.idl   ccs_reply.acf
+-    midl $(MIDL_OPTIMIZATION) $(MIDLI) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
++    midl $(MIDL_OPTIMIZATION) $(MIDLI) $(MIDL_TARGET) -oldnames -cpp_cmd $(CC) -cpp_opt "-E" \
+     ccs_reply.idl
+ 
+ copysrc :
+diff --git a/src/config/win-pre.in b/src/config/win-pre.in
+index 0bcb280..c709e6f 100644
+--- a/src/config/win-pre.in
++++ b/src/config/win-pre.in
+@@ -126,6 +126,11 @@ CCOPTS=-nologo /EHsc /W3 /we4020 /we4024 /we4047 $(PDB_OPTS) $(DLL_FILE_DEF)
+ LOPTS=-nologo -incremental:no -manifest
+ 
+ CCLINKOPTION=
++MIDL_TARGET=
++!if "$(CPU)" == "ARM64"
++MIDL_TARGET=/env arm64
++!endif
++
+ DEBUGOPT=/guard:cf /Zi
+ 
+ #if the compiler is vstudio 8, generate manifest
