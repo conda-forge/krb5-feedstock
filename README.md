@@ -225,7 +225,6 @@ Feedstock Maintainers
 
 * [@h-vetinari](https://github.com/h-vetinari/)
 * [@mariusvniekerk](https://github.com/mariusvniekerk/)
-* [@mingwandroid](https://github.com/mingwandroid/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@pelson](https://github.com/pelson/)
 * [@wolfv](https://github.com/wolfv/)
