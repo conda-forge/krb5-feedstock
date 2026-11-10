@@ -43,8 +43,6 @@ outputs:
         - keyutils  # [linux]
         - libedit   # [unix]
         - openssl
-      run:
-        - {{ pin_compatible('libedit') }}  # [unix]
 
     test:
       commands:
@@ -71,7 +69,6 @@ outputs:
         - openssl
       run:
         - {{ pin_subpackage('krb5', exact=True) }}
-        - {{ pin_compatible('libedit') }}  # [unix]
     test:
       commands:
         - test -f ${PREFIX}/lib/libk5crypto.a  # [unix]
