@@ -28,9 +28,9 @@ requirements:
     - bison       # [unix]
     - make        # [unix]
     - libtool     # [unix]
-    - pkg-config  # [unix]
+    - pkgconf     # [unix]
     - python *    # [unix]
-    - posix       # [win]
+    - m2-base     # [win]
     - perl        # [win]
     - gettext
   host:
@@ -60,7 +60,7 @@ outputs:
         - autoconf    # [unix]
         - bison       # [unix]
         - make        # [unix]
-        - pkg-config  # [unix]
+        - pkgconf     # [unix]
         - python {{ python_min }}
         - gettext
       host:
