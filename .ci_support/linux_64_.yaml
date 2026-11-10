@@ -1,3 +1,5 @@
+DOCKER_PLATFORM:
+- linux/amd64
 c_compiler:
 - gcc
 c_compiler_version:
@@ -18,10 +20,12 @@ docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma10
 krb5:
 - '1.22'
+libedit:
+- '3.1'
 openssl:
 - '3.5'
 python_min:
-- '3.10'
+- '3.11'
 target_platform:
 - linux-64
 zip_keys:
