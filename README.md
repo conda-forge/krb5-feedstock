@@ -3,7 +3,7 @@ About krb5-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/krb5-feedstock/blob/main/LICENSE.txt)
 
-Home: http://web.mit.edu/kerberos/
+Home: http://web.mit.edu/kerberos
 
 Package license: MIT
 

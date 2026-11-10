@@ -16,8 +16,6 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '21'
-krb5:
-- '1.22'
 libedit:
 - '3.1'
 macos_machine:
