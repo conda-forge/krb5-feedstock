@@ -38,7 +38,7 @@ outputs:
             - bison
             - libtool
             - make
-            - pkgconf
+            - pkg-config
             - python *
           else:
             - m2-base
@@ -73,7 +73,7 @@ outputs:
         - autoconf
         - bison
         - make
-        - pkgconf
+        - pkg-config
         - python ${{ python_min }}.*
         - gettext
       host:
