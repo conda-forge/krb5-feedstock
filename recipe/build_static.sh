@@ -6,9 +6,6 @@ export CPPFLAGS="${CPPFLAGS/-DNDEBUG/}"
 # https://github.com/conda-forge/bison-feedstock/issues/7
 export M4="${BUILD_PREFIX}/bin/m4"
 
-if [[ "$target_platform" == "osx-arm64" ]]; then
-    sed -i.bak "s@mig -header@mig -cc $(which $CC) -arch arm64 -header@g" src/lib/krb5/ccache/Makefile.in
-fi
 if [[ "$target_platform" != "$build_platform" ]]; then
     # This can't be deduced when cross-compiling
     export krb5_cv_attr_constructor_destructor=yes,yes
