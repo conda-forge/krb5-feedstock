@@ -1,7 +1,7 @@
 {% set version = "1.22.2" %}
 
 package:
-  name: krb5
+  name: krb5-split
   version: {{ version }}
 
 source:
@@ -13,40 +13,43 @@ source:
 
 build:
   number: 2
-  run_exports:
-    # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
-    - {{ pin_subpackage('krb5', max_pin='x.x') }}
-  missing_dso_whitelist:   # [osx]
-    - /usr/lib/libresolv.9.dylib  # [osx]
-
-requirements:
-  build:
-    - {{ stdlib('c') }}
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
-    - autoconf    # [unix]
-    - bison       # [unix]
-    - make        # [unix]
-    - libtool     # [unix]
-    - pkgconf     # [unix]
-    - python *    # [unix]
-    - m2-base     # [win]
-    - perl        # [win]
-    - gettext
-  host:
-    - libedit     # [unix]
-    - openssl
-    - keyutils    # [linux]
-  run:
-    - {{ pin_compatible('libedit') }}  # [unix]
-
-test:
-  commands:
-    - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}         # [unix]
-    - if not exist %LIBRARY_BIN%\krb5_64.dll exit 1     # [win]
 
 outputs:
   - name: krb5
+    script: build_shared.sh   # [unix]
+    script: build_shared.bat  # [win]
+    build:
+      run_exports:
+        # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
+        - {{ pin_subpackage('krb5', max_pin='x.x') }}
+      missing_dso_whitelist:            # [osx]
+        - /usr/lib/libresolv.9.dylib    # [osx]
+
+    requirements:
+      build:
+        - {{ stdlib('c') }}
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - autoconf  # [unix]
+        - bison     # [unix]
+        - make      # [unix]
+        - libtool   # [unix]
+        - pkgconf   # [unix]
+        - python *  # [unix]
+        - m2-base   # [win]
+        - perl      # [win]
+        - gettext
+      host:
+        - keyutils  # [linux]
+        - libedit   # [unix]
+        - openssl
+      run:
+        - {{ pin_compatible('libedit') }}  # [unix]
+
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}         # [unix]
+        - if not exist %LIBRARY_BIN%\krb5_64.dll exit 1     # [win]
 
   - name: krb5-static
     build:
@@ -87,3 +90,4 @@ extra:
     - mariusvniekerk
     - wolfv
     - h-vetinari
+  feedstock-name: krb5
