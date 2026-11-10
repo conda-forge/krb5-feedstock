@@ -1,84 +1,97 @@
-{% set version = "1.22.3" %}
+context:
+  version: "1.22.3"
 
-package:
+recipe:
   name: krb5-split
-  version: {{ version }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/krb5/krb5/archive/krb5-{{ version }}-final.tar.gz
+  url: https://github.com/krb5/krb5/archive/krb5-${{ version }}-final.tar.gz
   sha256: 4b1d2f8317e17a5848c62a1af460e00cdd6e8ef0fe267f6e6d1a4bc73a0e416d
   patches:
     # see https://github.com/krb5/krb5/pull/1528
-    - patches/0001-fix-windows-arm64-cross-build.patch  # [win]
+    - if: win
+      then: patches/0001-fix-windows-arm64-cross-build.patch
 
 build:
   number: 0
 
 outputs:
-  - name: krb5
-    script: build_shared.sh   # [unix]
-    script: build_shared.bat  # [win]
+  - package:
+      name: krb5
     build:
+      script:
+        file: build_shared
+      dynamic_linking:
+        missing_dso_allowlist:
+          - /usr/lib/libresolv.9.dylib
+
+    requirements:
+      build:
+        - ${{ stdlib('c') }}
+        - ${{ compiler('c') }}
+        - ${{ compiler('cxx') }}
+        - gettext
+        - if: unix
+          then:
+            - autoconf
+            - bison
+            - libtool
+            - make
+            - pkgconf
+            - python *
+          else:
+            - m2-base
+            - perl
+      host:
+        - openssl
+        - if: unix
+          then: libedit
+        - if: linux
+          then: keyutils
       run_exports:
         # stable within minor revisions: https://abi-laboratory.pro/tracker/timeline/krb5/
-        - {{ pin_subpackage('krb5', max_pin='x.x') }}
-      missing_dso_whitelist:            # [osx]
-        - /usr/lib/libresolv.9.dylib    # [osx]
+        - ${{ pin_subpackage('krb5', upper_bound='x.x') }}
+    tests:
+      - package_contents:
+          lib:
+            - if: unix
+              then: krb5
+              else: krb5_64
 
-    requirements:
-      build:
-        - {{ stdlib('c') }}
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - autoconf  # [unix]
-        - bison     # [unix]
-        - make      # [unix]
-        - libtool   # [unix]
-        - pkgconf   # [unix]
-        - python *  # [unix]
-        - m2-base   # [win]
-        - perl      # [win]
-        - gettext
-      host:
-        - keyutils  # [linux]
-        - libedit   # [unix]
-        - openssl
-
-    test:
-      commands:
-        - test -f ${PREFIX}/lib/libkrb5${SHLIB_EXT}         # [unix]
-        - if not exist %LIBRARY_BIN%\krb5_64.dll exit 1     # [win]
-
-  - name: krb5-static
+  - package:
+      name: krb5-static
     build:
-      skip: true  # [win]
-    script: build_static.sh
+      skip: win
+      script:
+        file: build_static
     requirements:
       build:
-        - {{ stdlib('c') }}
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - autoconf    # [unix]
-        - bison       # [unix]
-        - make        # [unix]
-        - pkgconf     # [unix]
-        - python {{ python_min }}
+        - ${{ stdlib('c') }}
+        - ${{ compiler('c') }}
+        - ${{ compiler('cxx') }}
+        - autoconf
+        - bison
+        - make
+        - pkgconf
+        - python ${{ python_min }}.*
         - gettext
       host:
-        - libedit     # [unix]
+        - libedit
         - openssl
       run:
-        - {{ pin_subpackage('krb5', exact=True) }}
-    test:
-      commands:
-        - test -f ${PREFIX}/lib/libk5crypto.a  # [unix]
+        - ${{ pin_subpackage('krb5', exact=True) }}
+    tests:
+      - package_contents:
+          files:
+            - lib/libk5crypto.a
 
 about:
-  home: http://web.mit.edu/kerberos/
+  homepage: http://web.mit.edu/kerberos
   license: MIT
   license_file: doc/notice.rst
   summary: A network authentication protocol.
-  dev_url: https://github.com/krb5/krb5
+  repository: https://github.com/krb5/krb5
 
 extra:
   recipe-maintainers:
